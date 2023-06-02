@@ -34,7 +34,7 @@ static inline void appendPushConstant(VkFFTSpecializationConstantsLayout* sc, Vk
 		VkAppendLine(sc);
 	}
 	else {
-		sc->res = VKFFT_ERROR_MATH_FAILED;
+		sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
 	}
 	return;
 }
@@ -42,7 +42,7 @@ static inline void appendPushConstants(VkFFTSpecializationConstantsLayout* sc) {
 	if (sc->res != VKFFT_SUCCESS) return;
 	if (sc->pushConstantsStructSize == 0)
 		return;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "layout(push_constant) uniform PushConsts\n{\n");
 	VkAppendLine(sc);
 	
@@ -90,7 +90,7 @@ static inline void appendPushConstants(VkFFTSpecializationConstantsLayout* sc) {
 		sprintf(tempCopyStr, "consts.%s", sc->kernelOffset.data.s);
 		sprintf(sc->kernelOffset.data.s, "%s", tempCopyStr);
 	}
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "} consts;\n\n");
 	VkAppendLine(sc);
 	

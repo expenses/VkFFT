@@ -184,6 +184,7 @@ typedef struct {
 	void* device;
 	void* queue;
 	void* commandBuffer;
+	uint64_t isCompilerInitialized;//specify if glslang compiler has been intialized before (0 - off, 1 - on). Default 0
 #endif
 	uint64_t bufferOffset;//specify if VkFFT has to offset the first element position inside the buffer. In bytes. Default 0 
 	uint64_t tempBufferOffset;//specify if VkFFT has to offset the first element position inside the temp buffer. In bytes. Default 0 

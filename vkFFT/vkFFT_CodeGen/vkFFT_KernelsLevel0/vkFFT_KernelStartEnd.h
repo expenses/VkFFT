@@ -50,7 +50,7 @@ static inline void appendKernelStart(VkFFTSpecializationConstantsLayout* sc, int
 
 	VkContainer* uintType32;
 	VkGetTypeFromCode(sc, sc->uintType32Code, &uintType32);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	appendSharedMemoryVkFFT(sc, locType);
 	sc->tempLen = sprintf(sc->tempStr, "void main() {\n");
 	VkAppendLine(sc);
@@ -356,7 +356,7 @@ static inline void appendKernelStart_R2C(VkFFTSpecializationConstantsLayout* sc,
 
 	VkContainer* uintType32;
 	VkGetTypeFromCode(sc, sc->uintType32Code, &uintType32);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "void main() {\n");
 	VkAppendLine(sc);
 #elif(VKFFT_BACKEND==1)

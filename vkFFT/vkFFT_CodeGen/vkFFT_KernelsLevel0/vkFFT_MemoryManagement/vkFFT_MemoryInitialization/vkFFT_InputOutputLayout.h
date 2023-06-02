@@ -25,7 +25,7 @@
 #include "vkFFT_CodeGen/vkFFT_StringManagement/vkFFT_StringManager.h"
 static inline void appendLayoutVkFFT(VkFFTSpecializationConstantsLayout* sc) {
 	if (sc->res != VKFFT_SUCCESS) return;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "layout (local_size_x = %" PRIi64 ", local_size_y = %" PRIi64 ", local_size_z = %" PRIi64 ") in;\n", sc->localSize[0].data.i, sc->localSize[1].data.i, sc->localSize[2].data.i);
 	VkAppendLine(sc);
 #elif(VKFFT_BACKEND==1)
@@ -41,7 +41,7 @@ static inline void appendInputLayoutVkFFT(VkFFTSpecializationConstantsLayout* sc
 	case 0: case 1: case 2: case 3: case 4: case 6: {
 		VkContainer* vecTypeInputMemory;
 		VkGetTypeFromCode(sc, sc->vecTypeInputMemoryCode, &vecTypeInputMemory);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		if (sc->inputBufferBlockNum == 1) {
 			sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) buffer DataIn{\n\
@@ -67,7 +67,7 @@ layout(std430, binding = %d) buffer DataIn{\n\
 	{
 		VkContainer* floatTypeInputMemory;
 		VkGetTypeFromCode(sc, sc->floatTypeInputMemoryCode, &floatTypeInputMemory);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		if (sc->inputBufferBlockNum == 1) {
 			sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) buffer DataIn{\n\
@@ -98,7 +98,7 @@ static inline void appendOutputLayoutVkFFT(VkFFTSpecializationConstantsLayout* s
 	case 0: case 1: case 2: case 3: case 4: case 5: {
 		VkContainer* vecTypeOutputMemory;
 		VkGetTypeFromCode(sc, sc->vecTypeOutputMemoryCode, &vecTypeOutputMemory);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		if (sc->outputBufferBlockNum == 1) {
 			sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) buffer DataOut{\n\
@@ -124,7 +124,7 @@ layout(std430, binding = %d) buffer DataOut{\n\
 	{
 		VkContainer* floatTypeOutputMemory;
 		VkGetTypeFromCode(sc, sc->floatTypeOutputMemoryCode, &floatTypeOutputMemory);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		if (sc->outputBufferBlockNum == 1) {
 			sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) buffer DataOut{\n\
@@ -154,7 +154,7 @@ static inline void appendKernelLayoutVkFFT(VkFFTSpecializationConstantsLayout* s
 	VkContainer* vecType;
 	VkGetTypeFromCode(sc, sc->vecTypeCode, &vecType);
 
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	if (sc->kernelBlockNum == 1) {
 		sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) buffer Kernel_FFT{\n\
@@ -182,7 +182,7 @@ static inline void appendLUTLayoutVkFFT(VkFFTSpecializationConstantsLayout* sc, 
 	VkContainer* vecType;
 	VkGetTypeFromCode(sc, sc->vecTypeCode, &vecType);
 
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) readonly buffer DataLUT {\n\
 %s twiddleLUT[];\n\
@@ -201,7 +201,7 @@ static inline void appendRaderUintLUTLayoutVkFFT(VkFFTSpecializationConstantsLay
 	VkContainer* uintType32;
 	VkGetTypeFromCode(sc, sc->uintType32Code, &uintType32);
 
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "\
 layout(std430, binding = %d) readonly buffer DataRaderUintLUT {\n\
 %s g_pow[];\n\
@@ -220,7 +220,7 @@ static inline void appendBluesteinLayoutVkFFT(VkFFTSpecializationConstantsLayout
 	VkContainer* vecType;
 	VkGetTypeFromCode(sc, sc->vecTypeCode, &vecType);
 
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	uint64_t loc_id = id;
 	if (sc->BluesteinConvolutionStep) {
 		sc->tempLen = sprintf(sc->tempStr, "\

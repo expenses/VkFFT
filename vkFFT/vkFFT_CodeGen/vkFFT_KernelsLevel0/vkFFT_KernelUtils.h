@@ -55,7 +55,7 @@ static inline void appendLicense(VkFFTSpecializationConstantsLayout* sc) {
 
 static inline void appendVersion(VkFFTSpecializationConstantsLayout* sc) {
 	if (sc->res != VKFFT_SUCCESS) return;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "#version 450\n\n");
 	VkAppendLine(sc);
 #endif
@@ -63,7 +63,7 @@ static inline void appendVersion(VkFFTSpecializationConstantsLayout* sc) {
 }
 static inline void appendExtensions(VkFFTSpecializationConstantsLayout* sc) {
 	if (sc->res != VKFFT_SUCCESS) return;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	//sc->tempLen = sprintf(sc->tempStr, "#extension GL_EXT_debug_printf : require\n\n");
 	//VkAppendLine(sc);
 	//
@@ -111,7 +111,7 @@ static inline void appendSinCos20(VkFFTSpecializationConstantsLayout* sc) {
 	VkContainer temp_name;
 	VkAllocateContainerFlexible(sc, &temp_name, 50);
 	temp_name.type = 100 + sc->floatTypeCode;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	temp_double.data.d = 0.63661977236758134307553505349006l;
 	sprintf(temp_name.data.s, "loc_2_PI");
 	VkDefineConstant(sc, &temp_name, &temp_double);
@@ -191,7 +191,7 @@ static inline void appendConversion(VkFFTSpecializationConstantsLayout* sc) {
 		VkGetTypeFromCode(sc, sc->floatTypeOutputMemoryCode, &floatTypeDifferent);
 	}
 
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 #else
 	sc->tempLen = sprintf(sc->tempStr, "\
 %s%s conv_%s(%s input)\n\
@@ -218,7 +218,7 @@ static inline void appendConversion(VkFFTSpecializationConstantsLayout* sc) {
 
 static inline void appendBarrierVkFFT(VkFFTSpecializationConstantsLayout* sc) {
 	if (sc->res != VKFFT_SUCCESS) return;
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sc->tempLen = sprintf(sc->tempStr, "barrier();\n\n");
 	VkAppendLine(sc);
 #elif(VKFFT_BACKEND==1)

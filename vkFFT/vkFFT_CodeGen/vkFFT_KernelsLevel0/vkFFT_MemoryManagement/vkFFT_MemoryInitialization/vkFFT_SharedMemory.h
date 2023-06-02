@@ -106,7 +106,7 @@ static inline void appendSharedMemoryVkFFT(VkFFTSpecializationConstantsLayout* s
 		}
 		VkContainer* vecType;
 		VkGetTypeFromCode(sc, sc->vecTypeCode, &vecType);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		sc->tempLen = sprintf(sc->tempStr, "shared %s sdata[%" PRIu64 "];// sharedStride - fft size,  gl_WorkGroupSize.y - grouped consecutive ffts\n\n", vecType->data.s, sc->usedSharedMemory.data.i / sc->complexSize);
 		VkAppendLine(sc);
 		
@@ -152,7 +152,7 @@ static inline void appendSharedMemoryVkFFT(VkFFTSpecializationConstantsLayout* s
 		}
 		VkContainer* vecType;
 		VkGetTypeFromCode(sc, sc->vecTypeCode, &vecType);
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 		sc->tempLen = sprintf(sc->tempStr, "shared %s sdata[%" PRIu64 "];\n\n", vecType->data.s, sc->usedSharedMemory.data.i / sc->complexSize);
 		VkAppendLine(sc);
 		
