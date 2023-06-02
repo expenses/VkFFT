@@ -163,7 +163,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 	case 2:
 		switch ((out->type % 100) / 10) {
 		case 0:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "half(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
@@ -172,7 +172,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 #endif
 			return;
 		case 1:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "float(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
@@ -181,7 +181,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 #endif
 			return;
 		case 2:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "double(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
@@ -193,7 +193,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 	case 3:
 		switch ((out->type % 100) / 10) {
 		case 0:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "f16vec2(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))
@@ -202,7 +202,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 #endif
 			return;
 		case 1:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "vec2(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))
@@ -211,7 +211,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 #endif
 			return;
 		case 2:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, "dvec2(");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))
@@ -236,21 +236,21 @@ static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc,
 	case 2:
 		switch ((out->type % 100) / 10) {
 		case 0:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
 #endif
 			return;
 		case 1:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
 #endif
 			return;
 		case 2:
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5))
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4))
@@ -260,7 +260,7 @@ static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc,
 	case 3:
 		switch ((out->type % 100) / 10) {
 		case 0:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))
@@ -269,7 +269,7 @@ static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc,
 #endif
 			return;
 		case 1:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))
@@ -278,7 +278,7 @@ static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc,
 #endif
 			return;
 		case 2:
-#if(VKFFT_BACKEND==0)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 			sc->tempLen = sprintf(sc->tempStr, ")");
 			VkAppendLine(sc);
 #elif((VKFFT_BACKEND==1)||(VKFFT_BACKEND==2)||(VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5))

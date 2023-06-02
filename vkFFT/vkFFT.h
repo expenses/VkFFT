@@ -58,12 +58,16 @@
 #endif
 #endif
 
+#if(VKFFT_BACKEND==666)
+#include "glslang_c_interface.h"
+#endif
+
 #include "vkFFT_Structs/vkFFT_Structs.h"
 #include "vkFFT_AppManagement/vkFFT_RunApp.h"
 #include "vkFFT_AppManagement/vkFFT_InitializeApp.h"
 #include "vkFFT_AppManagement/vkFFT_DeleteApp.h"
 
-static inline int VkFFTGetVersion() {
+int VkFFTGetVersion() {
 	return 10300; //X.XX.XX format
 }
 #endif

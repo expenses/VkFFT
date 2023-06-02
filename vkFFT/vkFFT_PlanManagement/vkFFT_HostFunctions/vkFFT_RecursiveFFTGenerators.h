@@ -25,7 +25,7 @@
 
 #include "vkFFT_PlanManagement/vkFFT_API_handles/vkFFT_ManageMemory.h"
 #include "vkFFT_AppManagement/vkFFT_InitializeApp.h"
-static inline VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunchConfiguration);
+VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunchConfiguration);
 
 static inline VkFFTResult VkFFTGeneratePhaseVectors(VkFFTApplication* app, VkFFTPlan* FFTPlan, uint64_t axis_id) {
 	//generate two arrays used for Blueestein convolution and post-convolution multiplication
@@ -1057,6 +1057,8 @@ static inline VkFFTResult VkFFTGenerateRaderFFTKernel(VkFFTApplication* app, VkF
 				void* bufferRaderFFT;
 #elif(VKFFT_BACKEND==5)
 				MTL::Buffer* bufferRaderFFT;
+#elif(VKFFT_BACKEND==666)
+				void* bufferRaderFFT;
 #endif
 #if(VKFFT_BACKEND==0)
 				VkResult res = VK_SUCCESS;

@@ -965,6 +965,44 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	dummy_library->release();
 	str_code->release();
 	compileOptions->release();
+#elif(VKFFT_BACKEND==666)
+	if (inputLaunchConfiguration.device == 0) {
+		deleteVkFFT(app);
+		return VKFFT_ERROR_INVALID_DEVICE;
+	}
+	app->configuration.device = inputLaunchConfiguration.device;
+
+	if (inputLaunchConfiguration.queue == 0) {
+		deleteVkFFT(app);
+		return VKFFT_ERROR_INVALID_QUEUE;
+	}
+	app->configuration.queue = inputLaunchConfiguration.queue;
+
+	app->configuration.maxThreadsNum = 256;
+
+	app->configuration.maxComputeWorkGroupSize[0] = 256;
+	app->configuration.maxComputeWorkGroupSize[1] = 256;
+	app->configuration.maxComputeWorkGroupSize[2] = 256;
+
+	app->configuration.maxComputeWorkGroupCount[0] = -1;
+	app->configuration.maxComputeWorkGroupCount[1] = -1;
+	app->configuration.maxComputeWorkGroupCount[2] = -1;
+
+	app->configuration.sharedMemorySizeStatic = 16352;
+	app->configuration.sharedMemorySize = 16352;
+	
+	app->configuration.warpSize = 64;
+
+	app->configuration.sharedMemorySizePow2 = (uint64_t)pow(2, (uint64_t)log2(app->configuration.sharedMemorySize));
+	app->configuration.useRaderUintLUT = 1;
+	
+	app->configuration.coalescedMemory = (app->configuration.halfPrecision) ? 128 : 64;//the coalesced memory is equal to 64 bytes between L2 and VRAM.
+	app->configuration.useLUT = (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) ? 1 : -1;
+	app->configuration.registerBoostNonPow2 = 0;
+	app->configuration.registerBoost = 1;
+	app->configuration.registerBoost4Step = 1;
+	app->configuration.swapTo3Stage4Step = (app->configuration.doublePrecision) ? 262144 : 524288;
+	app->configuration.vendorID = 0x1027f00;
 #endif
 
 	resFFT = initializeBluesteinAutoPadding(app);
@@ -1426,7 +1464,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	//uint64_t initSharedMemory = app->configuration.sharedMemorySize;
 	return resFFT;
 }
-static inline VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunchConfiguration) {
+VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunchConfiguration) {
 	
 	VkFFTResult resFFT = VKFFT_SUCCESS;
 	resFFT = setConfigurationVkFFT(app, inputLaunchConfiguration);

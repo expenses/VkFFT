@@ -175,6 +175,15 @@ typedef struct {
 	MTL::Buffer** inputBuffer;//pointer to device buffer used to read data from if isInputFormatted is enabled
 	MTL::Buffer** outputBuffer;//pointer to device buffer used to read data from if isOutputFormatted is enabled
 	MTL::Buffer** kernel;//pointer to device buffer used to read kernel data from if performConvolution is enabled
+#elif(VKFFT_BACKEND==666)
+	void* buffer;
+	void* tempBuffer;
+	void* inputBuffer;
+	void* outputBuffer;
+	void* kernel;
+	void* device;
+	void* queue;
+	void* commandBuffer;
 #endif
 	uint64_t bufferOffset;//specify if VkFFT has to offset the first element position inside the buffer. In bytes. Default 0 
 	uint64_t tempBufferOffset;//specify if VkFFT has to offset the first element position inside the temp buffer. In bytes. Default 0 
@@ -356,6 +365,13 @@ typedef struct {
 	MTL::Buffer** inputBuffer;//pointer to array of input buffers (or one buffer) used to read data from if isInputFormatted is enabled
 	MTL::Buffer** outputBuffer;//pointer to array of output buffers (or one buffer) used for write data to if isOutputFormatted is enabled
 	MTL::Buffer** kernel;//pointer to array of kernel buffers (or one buffer) used for read kernel data from if performConvolution is enabled
+#elif(VKFFT_BACKEND==666)
+	void* buffer;
+	void* tempBuffer;
+	void* inputBuffer;
+	void* outputBuffer;
+	void* kernel;
+	void* commandBuffer;
 #endif
 	//following parameters can be specified during kernels launch, if specifyOffsetsAtLaunch parameter was enabled during the initializeVkFFT call
 	uint64_t bufferOffset;//specify if VkFFT has to offset the first element position inside the buffer. In bytes. Default 0 
@@ -459,7 +475,7 @@ typedef enum VkFFTResult {
 	VKFFT_ERROR_FAILED_TO_SUBMIT_BARRIER = 4055
 } VkFFTResult;
 
-static inline const char* getVkFFTErrorString(VkFFTResult result)
+const char* getVkFFTErrorString(VkFFTResult result)
 {
 	switch (result)
 	{
@@ -1066,6 +1082,13 @@ typedef struct {
 	MTL::Buffer* bufferRaderUintLUT;
 	MTL::Buffer** bufferBluestein;
 	MTL::Buffer** bufferBluesteinFFT;
+#elif(VKFFT_BACKEND==666)
+	void* inputBuffer;
+	void* outputBuffer;
+	void* bufferLUT;
+	void* bufferRaderUintLUT;
+	void* bufferBluestein;
+	void* bufferBluesteinFFT;
 #endif
 
 	void* binary;
@@ -1131,6 +1154,11 @@ typedef struct {
 	MTL::Buffer* bufferBluestein[3];
 	MTL::Buffer* bufferBluesteinFFT[3];
 	MTL::Buffer* bufferBluesteinIFFT[3];
+#elif(VKFFT_BACKEND==666)
+	void* bufferRaderUintLUT[3][4];
+	void* bufferBluestein[3];
+	void* bufferBluesteinFFT[3];
+	void* bufferBluesteinIFFT[3];
 #endif
 	uint64_t bufferRaderUintLUTSize[3][4];
 	uint64_t bufferBluesteinSize[3];

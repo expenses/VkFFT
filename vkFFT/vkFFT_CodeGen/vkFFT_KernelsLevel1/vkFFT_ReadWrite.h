@@ -79,7 +79,7 @@ static inline void setReadToRegisters(VkFFTSpecializationConstantsLayout* sc, in
 	}
 	case 142: case 143:
 	{
-#if(((VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5)))
+#if(((VKFFT_BACKEND==3)||(VKFFT_BACKEND==4)||(VKFFT_BACKEND==5)||(VKFFT_BACKEND==666)))
 		sc->readToRegisters = 1;
 #else
 		sc->readToRegisters = 0;

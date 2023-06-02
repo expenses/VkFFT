@@ -76,7 +76,7 @@ static inline void printDebugInformation(VkFFTApplication* app, VkFFTAxis* axis)
 			printf("write: outputBuffer\n");
 	}
 }
-static inline VkFFTResult VkFFTAppend(VkFFTApplication* app, int inverse, VkFFTLaunchParams* launchParams) {
+VkFFTResult VkFFTAppend(VkFFTApplication* app, int inverse, VkFFTLaunchParams* launchParams) {
 	VkFFTResult resFFT = VKFFT_SUCCESS;
 #if(VKFFT_BACKEND==0)
 	app->configuration.commandBuffer = launchParams->commandBuffer;
@@ -98,6 +98,8 @@ static inline VkFFTResult VkFFTAppend(VkFFTApplication* app, int inverse, VkFFTL
 #elif(VKFFT_BACKEND==5)
 	app->configuration.commandBuffer = launchParams->commandBuffer;
 	app->configuration.commandEncoder = launchParams->commandEncoder;
+#elif(VKFFT_BACKEND==666)
+	app->configuration.commandBuffer = launchParams->commandBuffer;
 #endif
 	uint64_t localSize0[3];
 	if ((inverse != 1) && (app->configuration.makeInversePlanOnly)) return VKFFT_ERROR_ONLY_INVERSE_FFT_INITIALIZED;

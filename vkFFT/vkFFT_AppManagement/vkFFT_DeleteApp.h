@@ -25,7 +25,7 @@
 #include "vkFFT_PlanManagement/vkFFT_API_handles/vkFFT_DeletePlan.h"
 #include "vkFFT_PlanManagement/vkFFT_API_handles/vkFFT_UpdateBuffers.h"
 
-static inline void deleteVkFFT(VkFFTApplication* app) {
+void deleteVkFFT(VkFFTApplication* app) {
 #if(VKFFT_BACKEND==0)
 	if (app->configuration.isCompilerInitialized) {
 		glslang_finalize_process();
