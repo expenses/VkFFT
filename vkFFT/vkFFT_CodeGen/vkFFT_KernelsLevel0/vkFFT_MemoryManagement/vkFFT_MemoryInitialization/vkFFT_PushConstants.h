@@ -34,7 +34,7 @@ static inline void appendPushConstant(VkFFTSpecializationConstantsLayout* sc, Vk
 		VkAppendLine(sc);
 	}
 	else {
-		sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+		sc->res = VKFFT_ERROR_MATH_FAILED;
 	}
 	return;
 }

@@ -66,6 +66,29 @@
 #include "Metal/Metal.hpp"
 #endif
 
+
+struct BufferInfo {
+	void* buffer;
+	uint64_t offset;
+	uint64_t range;
+	uint32_t array_element;
+};
+
+
+void* create_pipeline(void* device, const uint32_t* code, uint64_t codeSize, void* descriptor_set);
+
+void bind_pipeline(void* command_buffer, void* pipeline);
+
+void push_constants(void* command_buffer, uint32_t size, char[128]);
+
+void dispatch(void* command_buffer, uint32_t x, uint32_t y, uint32_t z);
+
+void* update_buffer_descriptor(void* device, BufferInfo* p_info, uint64_t num_info);
+
+void bind_descriptor_set(void* command_buffer, void* descriptor_set);
+
+void* allocate_buffer(void* device, uint64_t size);
+
 //unified VkFFT container
 union VkData {
 	int64_t i;
@@ -176,11 +199,11 @@ typedef struct {
 	MTL::Buffer** outputBuffer;//pointer to device buffer used to read data from if isOutputFormatted is enabled
 	MTL::Buffer** kernel;//pointer to device buffer used to read kernel data from if performConvolution is enabled
 #elif(VKFFT_BACKEND==666)
-	void* buffer;
-	void* tempBuffer;
-	void* inputBuffer;
-	void* outputBuffer;
-	void* kernel;
+	void** buffer;
+	void** tempBuffer;
+	void** inputBuffer;
+	void** outputBuffer;
+	void** kernel;
 	void* device;
 	void* queue;
 	void* commandBuffer;
@@ -367,11 +390,11 @@ typedef struct {
 	MTL::Buffer** outputBuffer;//pointer to array of output buffers (or one buffer) used for write data to if isOutputFormatted is enabled
 	MTL::Buffer** kernel;//pointer to array of kernel buffers (or one buffer) used for read kernel data from if performConvolution is enabled
 #elif(VKFFT_BACKEND==666)
-	void* buffer;
-	void* tempBuffer;
-	void* inputBuffer;
-	void* outputBuffer;
-	void* kernel;
+	void** buffer;
+	void** tempBuffer;
+	void** inputBuffer;
+	void** outputBuffer;
+	void** kernel;
 	void* commandBuffer;
 #endif
 	//following parameters can be specified during kernels launch, if specifyOffsetsAtLaunch parameter was enabled during the initializeVkFFT call
@@ -1084,12 +1107,14 @@ typedef struct {
 	MTL::Buffer** bufferBluestein;
 	MTL::Buffer** bufferBluesteinFFT;
 #elif(VKFFT_BACKEND==666)
-	void* inputBuffer;
-	void* outputBuffer;
+	void** inputBuffer;
+	void** outputBuffer;
 	void* bufferLUT;
 	void* bufferRaderUintLUT;
-	void* bufferBluestein;
-	void* bufferBluesteinFFT;
+	void** bufferBluestein;
+	void** bufferBluesteinFFT;
+	void* pipeline;
+	void* descriptor_set;
 #endif
 
 	void* binary;

@@ -1085,7 +1085,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 
 	if (inputLaunchConfiguration.bufferNum == 0)	app->configuration.bufferNum = 1;
 	else app->configuration.bufferNum = inputLaunchConfiguration.bufferNum;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 	if (inputLaunchConfiguration.bufferSize == 0) {
 		deleteVkFFT(app);
 		return VKFFT_ERROR_EMPTY_bufferSize;
@@ -1107,7 +1107,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	if (app->configuration.userTempBuffer != 0) {
 		if (inputLaunchConfiguration.tempBufferNum == 0)	app->configuration.tempBufferNum = 1;
 		else app->configuration.tempBufferNum = inputLaunchConfiguration.tempBufferNum;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 		if (inputLaunchConfiguration.tempBufferSize == 0) {
 			deleteVkFFT(app);
 			return VKFFT_ERROR_EMPTY_tempBufferSize;
@@ -1138,7 +1138,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	if (app->configuration.isInputFormatted) {
 		if (inputLaunchConfiguration.inputBufferNum == 0)	app->configuration.inputBufferNum = 1;
 		else app->configuration.inputBufferNum = inputLaunchConfiguration.inputBufferNum;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 		if (inputLaunchConfiguration.inputBufferSize == 0) {
 			deleteVkFFT(app);
 			return VKFFT_ERROR_EMPTY_inputBufferSize;
@@ -1165,7 +1165,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 		if (inputLaunchConfiguration.outputBufferNum == 0)	app->configuration.outputBufferNum = 1;
 		else
 			app->configuration.outputBufferNum = inputLaunchConfiguration.outputBufferNum;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 		if (inputLaunchConfiguration.outputBufferSize == 0) {
 			deleteVkFFT(app);
 			return VKFFT_ERROR_EMPTY_outputBufferSize;
@@ -1191,7 +1191,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	if (app->configuration.performConvolution) {
 		if (inputLaunchConfiguration.kernelNum == 0)	app->configuration.kernelNum = 1;
 		else app->configuration.kernelNum = inputLaunchConfiguration.kernelNum;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 		if (inputLaunchConfiguration.kernelSize == 0) {
 			deleteVkFFT(app);
 			return VKFFT_ERROR_EMPTY_kernelSize;
@@ -1466,7 +1466,7 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	}
 	//temporary set:
 	app->configuration.registerBoost4Step = 1;
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 	app->configuration.useUint64 = 0; //No physical addressing mode in Vulkan shaders. Use multiple-buffer support to achieve emulation of physical addressing.
 #endif
 	//uint64_t initSharedMemory = app->configuration.sharedMemorySize;
@@ -1730,7 +1730,7 @@ VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunc
 			}
 		}
 	}
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 	if (app->configuration.isCompilerInitialized) {
 		glslang_finalize_process();
 		app->configuration.isCompilerInitialized = 0;

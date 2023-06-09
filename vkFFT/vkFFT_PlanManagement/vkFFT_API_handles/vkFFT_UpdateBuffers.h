@@ -768,11 +768,15 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 		axis->specializationConstants.kernelOffset.type = 31;
 #if(VKFFT_BACKEND==0)
 		const VkDescriptorType descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+#elif(VKFFT_BACKEND==666)
+		BufferInfo buffer_infos[axis->numBindings];
 #endif
 		for (uint64_t i = 0; i < axis->numBindings; ++i) {
 			for (uint64_t j = 0; j < axis->specializationConstants.numBuffersBound[i]; ++j) {
 #if(VKFFT_BACKEND==0)
 				VkDescriptorBufferInfo descriptorBufferInfo = { 0 };
+#elif(VKFFT_BACKEND==666)
+	BufferInfo buffer_info;
 #endif
 				if (i == 0) {
 					if ((axis_upload_id == FFTPlan->numAxisUploads[axis_id] - 1) && (app->configuration.isInputFormatted) && (!axis->specializationConstants.reverseBluesteinMultiUpload) && (
@@ -800,6 +804,10 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 							descriptorBufferInfo.buffer = app->configuration.inputBuffer[bufferId];
 							descriptorBufferInfo.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 							descriptorBufferInfo.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.inputBuffer[bufferId];
+	buffer_info.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);;
+	buffer_info.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 #endif
 						}
 						if (axis->specializationConstants.performOffsetUpdate) {
@@ -829,6 +837,10 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 								descriptorBufferInfo.buffer = app->configuration.outputBuffer[bufferId];
 								descriptorBufferInfo.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 								descriptorBufferInfo.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.outputBuffer[bufferId];
+	buffer_info.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);;
+	buffer_info.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 #endif
 							}
 							if (axis->specializationConstants.performOffsetUpdate) {
@@ -857,6 +869,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 										axis->inputBuffer = app->configuration.buffer;
 #if(VKFFT_BACKEND==0)
 										descriptorBufferInfo.buffer = app->configuration.buffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.buffer[bufferId];
 #endif
 									}
 									if (axis->specializationConstants.performOffsetUpdate) {
@@ -880,6 +894,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 										axis->inputBuffer = app->configuration.tempBuffer;
 #if(VKFFT_BACKEND==0)
 										descriptorBufferInfo.buffer = app->configuration.tempBuffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.tempBuffer[bufferId];
 #endif
 									}
 									if (axis->specializationConstants.performOffsetUpdate) {
@@ -904,6 +920,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 									axis->inputBuffer = app->configuration.buffer;
 #if(VKFFT_BACKEND==0)
 									descriptorBufferInfo.buffer = app->configuration.buffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.buffer[bufferId];
 #endif
 								}
 								if (axis->specializationConstants.performOffsetUpdate) {
@@ -915,6 +933,11 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 								descriptorBufferInfo.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 								descriptorBufferInfo.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
 							}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.range = (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
+		buffer_info.offset = offset * (axis->specializationConstants.inputBufferBlockSize * axis->specializationConstants.complexSize);
+	}
 #endif
 						}
 					}
@@ -954,6 +977,10 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 							descriptorBufferInfo.buffer = app->configuration.outputBuffer[bufferId];
 							descriptorBufferInfo.range = (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
 							descriptorBufferInfo.offset = offset * (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.outputBuffer[bufferId];
+	buffer_info.range = (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
+	buffer_info.offset = offset * (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
 #endif
 						}
 						if (axis->specializationConstants.performOffsetUpdate) {
@@ -985,6 +1012,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 									axis->outputBuffer = app->configuration.inputBuffer;
 #if(VKFFT_BACKEND==0)
 									descriptorBufferInfo.buffer = app->configuration.inputBuffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.inputBuffer[bufferId];
 #endif
 								}
 								if (axis->specializationConstants.performOffsetUpdate) {
@@ -1009,6 +1038,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 										axis->outputBuffer = app->configuration.tempBuffer;
 #if(VKFFT_BACKEND==0)
 										descriptorBufferInfo.buffer = app->configuration.tempBuffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.tempBuffer[bufferId];
 #endif
 									}
 									if (axis->specializationConstants.performOffsetUpdate) {
@@ -1032,6 +1063,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 										axis->outputBuffer = app->configuration.buffer;
 #if(VKFFT_BACKEND==0)
 										descriptorBufferInfo.buffer = app->configuration.buffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.buffer[bufferId];
 #endif
 									}
 									if (axis->specializationConstants.performOffsetUpdate) {
@@ -1058,6 +1091,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 									axis->outputBuffer = app->configuration.inputBuffer;
 #if(VKFFT_BACKEND==0)
 									descriptorBufferInfo.buffer = app->configuration.inputBuffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.inputBuffer[bufferId];
 #endif
 								}
 								if (axis->specializationConstants.performOffsetUpdate) {
@@ -1081,6 +1116,8 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 									axis->outputBuffer = app->configuration.buffer;
 #if(VKFFT_BACKEND==0)
 									descriptorBufferInfo.buffer = app->configuration.buffer[bufferId];
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.buffer[bufferId];
 #endif
 								}
 								if (axis->specializationConstants.performOffsetUpdate) {
@@ -1093,6 +1130,11 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 							descriptorBufferInfo.range = (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
 							descriptorBufferInfo.offset = offset * (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
 						}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.range = (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
+		buffer_info.offset = offset * (axis->specializationConstants.outputBufferBlockSize * axis->specializationConstants.complexSize);
+	}
 #endif
 					}
 					//descriptorBufferInfo.offset = 0;
@@ -1117,6 +1159,10 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 						descriptorBufferInfo.buffer = app->configuration.kernel[bufferId];
 						descriptorBufferInfo.range = (axis->specializationConstants.kernelBlockSize * axis->specializationConstants.complexSize);
 						descriptorBufferInfo.offset = offset * (axis->specializationConstants.kernelBlockSize * axis->specializationConstants.complexSize);
+#elif(VKFFT_BACKEND==666)
+	buffer_info.buffer = app->configuration.kernel[bufferId];
+	buffer_info.range = (axis->specializationConstants.kernelBlockSize * axis->specializationConstants.complexSize);
+	buffer_info.offset = offset * (axis->specializationConstants.kernelBlockSize * axis->specializationConstants.complexSize);
 #endif
 					}
 					if (axis->specializationConstants.performOffsetUpdate) {
@@ -1130,6 +1176,12 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 						descriptorBufferInfo.offset = 0;
 						descriptorBufferInfo.range = axis->bufferLUTSize;
 					}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.buffer = axis->bufferLUT;
+		buffer_info.offset = 0;
+		buffer_info.range = axis->bufferLUTSize;
+	}
 #endif
 				}
 				if ((i == axis->specializationConstants.RaderUintLUTBindingID) && (axis->specializationConstants.raderUintLUT)) {
@@ -1139,6 +1191,12 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 						descriptorBufferInfo.offset = 0;
 						descriptorBufferInfo.range = axis->bufferRaderUintLUTSize;
 					}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.buffer = axis->bufferRaderUintLUT;
+		buffer_info.offset = 0;
+		buffer_info.range = axis->bufferRaderUintLUTSize;
+	}
 #endif
 				}
 				if ((i == axis->specializationConstants.BluesteinConvolutionBindingID) && (app->useBluesteinFFT[axis_id]) && (axis_upload_id == 0)) {
@@ -1151,6 +1209,15 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 						descriptorBufferInfo.offset = 0;
 						descriptorBufferInfo.range = app->bufferBluesteinSize[axis_id];
 					}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		if (axis->specializationConstants.inverseBluestein)
+			buffer_info.buffer = app->bufferBluesteinIFFT[axis_id];
+		else
+			buffer_info.buffer = app->bufferBluesteinFFT[axis_id];
+		buffer_info.offset = 0;
+		buffer_info.range = app->bufferBluesteinSize[axis_id];
+	}
 #endif
 				}
 				if ((i == axis->specializationConstants.BluesteinMultiplicationBindingID) && (app->useBluesteinFFT[axis_id]) && (axis_upload_id == (FFTPlan->numAxisUploads[axis_id] - 1))) {
@@ -1160,6 +1227,12 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 						descriptorBufferInfo.offset = 0;
 						descriptorBufferInfo.range = app->bufferBluesteinSize[axis_id];
 					}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.buffer = app->bufferBluestein[axis_id];
+		buffer_info.offset = 0;
+		buffer_info.range = app->bufferBluesteinSize[axis_id];
+	}
 #endif
 				}
 #if(VKFFT_BACKEND==0)
@@ -1173,9 +1246,18 @@ static inline VkFFTResult VkFFTUpdateBufferSet(VkFFTApplication* app, VkFFTPlan*
 					writeDescriptorSet.pBufferInfo = &descriptorBufferInfo;
 					vkUpdateDescriptorSets(app->configuration.device[0], 1, &writeDescriptorSet, 0, 0);
 				}
+#elif(VKFFT_BACKEND==666)
+	if (axis->specializationConstants.performBufferSetUpdate) {
+		buffer_info.array_element = j;
+
+		buffer_infos[i] = buffer_info;		
+	}
 #endif
 			}
 		}
+#if(VKFFT_BACKEND==666)
+		axis->descriptor_set = update_buffer_descriptor(app->configuration.device, &buffer_infos[0], axis->numBindings);
+#endif
 	}
 	if (axis->specializationConstants.performBufferSetUpdate) {
 		axis->specializationConstants.performBufferSetUpdate = 0;

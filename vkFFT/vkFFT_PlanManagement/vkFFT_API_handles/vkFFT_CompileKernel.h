@@ -1133,7 +1133,9 @@ static inline VkFFTResult VkFFT_CompileKernel(VkFFTApplication* app, VkFFTAxis* 
 
 		glslang_shader_delete(shader);
 		uint32_t* tempCode = glslang_program_SPIRV_get_ptr(program);
-		codeSize = glslang_program_SPIRV_get_size(program) * sizeof(uint32_t);
+		uint32_t module_size = glslang_program_SPIRV_get_size(program);
+		codeSize = module_size * sizeof(uint32_t);
+		axis->pipeline = create_pipeline(app->configuration.device, tempCode, module_size, axis->descriptor_set);
 		axis->binarySize = codeSize;
 		code = (uint32_t*)malloc(codeSize);
 		if (!code) {

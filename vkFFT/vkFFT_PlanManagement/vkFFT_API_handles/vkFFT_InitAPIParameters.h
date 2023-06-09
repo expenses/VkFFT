@@ -56,7 +56,7 @@ static inline VkFFTResult initMemoryParametersAPI(VkFFTApplication* app, VkFFTSp
 	VkAllocateContainerFlexible(sc, &sc->int64Def, 50);
 	sc->int64Def.type = 130;
 
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666)
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666))
 	sprintf(sc->halfLiteral.data.s, "h");
 	sprintf(sc->floatLiteral.data.s, "f");
 	sprintf(sc->doubleLiteral.data.s, "LF");
@@ -340,7 +340,7 @@ static inline VkFFTResult initParametersAPI(VkFFTApplication* app, VkFFTSpeciali
 		sc->kernelOffset.type = 100 + sc->uintTypeCode;
 		sprintf(sc->kernelOffset.data.s, "kernelOffset");
 	}
-#if(VKFFT_BACKEND==0||VKFFT_BACKEND==666) 
+#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
 	sprintf(sc->inputsStruct.data.s, "inputs");
 	sprintf(sc->outputsStruct.data.s, "outputs");
 	sprintf(sc->gl_LocalInvocationID_x.data.s, "gl_LocalInvocationID.x");

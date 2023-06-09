@@ -33,7 +33,7 @@ static inline void VkCopyContainer(VkFFTSpecializationConstantsLayout* sc, VkCon
 			if (out->type == in->type) {
 				int len = 0;
 				len = sprintf(out->data.s, "%s", in->data.s);
-				if (len > out->size) sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				if (len > out->size) sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 		}
@@ -60,7 +60,7 @@ static inline void VkCopyContainer(VkFFTSpecializationConstantsLayout* sc, VkCon
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAllocateContainerFlexible(VkFFTSpecializationConstantsLayout* sc, VkContainer* container, int size) {
@@ -128,7 +128,7 @@ static inline void VkGetTypeFromCode(VkFFTSpecializationConstantsLayout* sc, int
 		}
 		break;
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAppendNumberLiteral(VkFFTSpecializationConstantsLayout* sc, VkContainer* number) {
@@ -221,7 +221,7 @@ static inline void VkAppendConversionStart(VkFFTSpecializationConstantsLayout* s
 			return;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in) {
@@ -288,7 +288,7 @@ static inline void VkAppendConversionEnd(VkFFTSpecializationConstantsLayout* sc,
 			return;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -350,7 +350,7 @@ static inline void VkDefine(VkFFTSpecializationConstantsLayout* sc, VkContainer*
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkDefineConstant(VkFFTSpecializationConstantsLayout* sc, VkContainer* name, VkContainer* value) {
@@ -492,7 +492,7 @@ static inline void VkSetToZero(VkFFTSpecializationConstantsLayout* sc, VkContain
 			return;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkSetToZeroShared(VkFFTSpecializationConstantsLayout* sc, VkContainer* sdataID) {
@@ -674,7 +674,7 @@ static inline void VkMov_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -734,7 +734,7 @@ static inline void VkMov_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkMov_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in) {
@@ -747,7 +747,7 @@ static inline void VkMov_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -807,7 +807,7 @@ static inline void VkMov_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -821,7 +821,7 @@ static inline void VkMov_x_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -881,7 +881,7 @@ static inline void VkMov_x_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkMov_y_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in) {
@@ -894,7 +894,7 @@ static inline void VkMov_y_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -954,7 +954,7 @@ static inline void VkMov_y_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -968,7 +968,7 @@ static inline void VkMov_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -981,7 +981,7 @@ static inline void VkMov_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 		}
@@ -992,7 +992,7 @@ static inline void VkMov_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 			VkAppendNumberLiteral(sc, out);
@@ -1016,7 +1016,7 @@ static inline void VkMov_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkMov_x_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in) {
@@ -1029,7 +1029,7 @@ static inline void VkMov_x_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -1042,7 +1042,7 @@ static inline void VkMov_x_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 		}
@@ -1053,7 +1053,7 @@ static inline void VkMov_x_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 			VkAppendNumberLiteral(sc, out);
@@ -1077,7 +1077,7 @@ static inline void VkMov_x_Neg_y(VkFFTSpecializationConstantsLayout* sc, VkConta
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -1091,7 +1091,7 @@ static inline void VkMov_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -1104,7 +1104,7 @@ static inline void VkMov_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 		}
@@ -1115,7 +1115,7 @@ static inline void VkMov_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 			VkAppendNumberLiteral(sc, out);
@@ -1139,7 +1139,7 @@ static inline void VkMov_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkMov_y_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in) {
@@ -1152,7 +1152,7 @@ static inline void VkMov_y_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -1165,7 +1165,7 @@ static inline void VkMov_y_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 		}
@@ -1176,7 +1176,7 @@ static inline void VkMov_y_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 				VkAppendLine(sc);
 				break;
 			default:
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 				return;
 			}
 			VkAppendNumberLiteral(sc, out);
@@ -1200,7 +1200,7 @@ static inline void VkMov_y_Neg_x(VkFFTSpecializationConstantsLayout* sc, VkConta
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -1616,7 +1616,7 @@ static inline void VkAdd(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 		break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -1629,7 +1629,7 @@ static inline void VkAdd_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -1795,7 +1795,7 @@ static inline void VkAdd_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAdd_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -1807,7 +1807,7 @@ static inline void VkAdd_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -1973,7 +1973,7 @@ static inline void VkAdd_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAdd_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -1985,7 +1985,7 @@ static inline void VkAdd_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -2151,7 +2151,7 @@ static inline void VkAdd_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkAdd_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -2163,7 +2163,7 @@ static inline void VkAdd_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -2329,7 +2329,7 @@ static inline void VkAdd_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -2745,7 +2745,7 @@ static inline void VkAddInv(VkFFTSpecializationConstantsLayout* sc, VkContainer*
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -2777,7 +2777,7 @@ static inline void VkInc(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -3193,7 +3193,7 @@ static inline void VkSub(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -3206,7 +3206,7 @@ static inline void VkSub_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -3372,7 +3372,7 @@ static inline void VkSub_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkSub_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -3384,7 +3384,7 @@ static inline void VkSub_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -3550,7 +3550,7 @@ static inline void VkSub_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkSub_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -3562,7 +3562,7 @@ static inline void VkSub_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -3728,7 +3728,7 @@ static inline void VkSub_x_y(VkFFTSpecializationConstantsLayout* sc, VkContainer
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkSub_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -3740,7 +3740,7 @@ static inline void VkSub_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			VkAppendLine(sc);
 			break;
 		default:
-			sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+			sc->res = VKFFT_ERROR_MATH_FAILED;
 			return;
 		}
 		sc->tempLen = sprintf(sc->tempStr, " = ");
@@ -3906,7 +3906,7 @@ static inline void VkSub_y_x(VkFFTSpecializationConstantsLayout* sc, VkContainer
 
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -4881,7 +4881,7 @@ static inline void VkFMA(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -5449,7 +5449,7 @@ static inline void VkMul(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -5738,7 +5738,7 @@ static inline void VkMul_x(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -6035,7 +6035,7 @@ static inline void VkMul_y(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -6089,7 +6089,7 @@ static inline void VkFMA3(VkFFTSpecializationConstantsLayout* sc, VkContainer* o
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkFMA3_const_w(VkFFTSpecializationConstantsLayout* sc, VkContainer* out_1, VkContainer* out_2, VkContainer* in_1, VkContainer* in_num_x, VkContainer* in_num_y, VkContainer* in_conj, VkContainer* temp) {
@@ -6166,7 +6166,7 @@ static inline void VkFMA3_const_w(VkFFTSpecializationConstantsLayout* sc, VkCont
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -6230,7 +6230,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 					VkAppendLine(sc);
 					break;
 				case 3:
-					sc->res = dbg(VKFFT_ERROR_MATH_FAILED); 
+					sc->res = VKFFT_ERROR_MATH_FAILED; 
 					break;
 				}
 				break;
@@ -6305,7 +6305,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			}
 			VkAppendConversionEnd(sc, out, in_2);
 			if (((in_1->type % 10) == 3) && ((in_2->type % 10) == 3)) {
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 			}
 			sc->tempLen = sprintf(sc->tempStr, ";\n");
 			VkAppendLine(sc);
@@ -6361,7 +6361,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 						VkAppendLine(sc);
 						break;
 					case 3:
-						sc->res = dbg(VKFFT_ERROR_MATH_FAILED); 
+						sc->res = VKFFT_ERROR_MATH_FAILED; 
 						break;
 					}
 					break;
@@ -6442,7 +6442,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 				}
 				VkAppendConversionEnd(sc, out, in_2);
 				if (((in_1->type % 10) == 3) && ((in_2->type % 10) == 3)) {
-					sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+					sc->res = VKFFT_ERROR_MATH_FAILED;
 				}
 				sc->tempLen = sprintf(sc->tempStr, ";\n");
 				VkAppendLine(sc);
@@ -6559,7 +6559,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 							out->data.c[1] = in_1->data.c[1] / in_2->data.d;
 							return;
 						case 3:
-							sc->res = dbg(VKFFT_ERROR_MATH_FAILED); 
+							sc->res = VKFFT_ERROR_MATH_FAILED; 
 							return;
 						}
 					}
@@ -6569,7 +6569,7 @@ static inline void VkDiv(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -6632,7 +6632,7 @@ static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer
 					VkAppendLine(sc);
 					break;
 				case 3:
-					sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+					sc->res = VKFFT_ERROR_MATH_FAILED;
 					break;
 				}
 				break;
@@ -6709,7 +6709,7 @@ static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			}
 			VkAppendConversionEnd(sc, out, in_2);
 			if (((in_1->type % 10) == 3) && ((in_2->type % 10) == 3)) {
-				sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+				sc->res = VKFFT_ERROR_MATH_FAILED;
 			}
 			sc->tempLen = sprintf(sc->tempStr, ");\n");
 			VkAppendLine(sc);
@@ -6765,7 +6765,7 @@ static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer
 						VkAppendLine(sc);
 						break;
 					case 3:
-						sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+						sc->res = VKFFT_ERROR_MATH_FAILED;
 						break;
 					}
 					break;
@@ -6848,7 +6848,7 @@ static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer
 				}
 				VkAppendConversionEnd(sc, out, in_2);
 				if (((in_1->type % 10) == 3) && ((in_2->type % 10) == 3)) {
-					sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+					sc->res = VKFFT_ERROR_MATH_FAILED;
 				}
 				sc->tempLen = sprintf(sc->tempStr, ");\n");
 				VkAppendLine(sc);
@@ -6974,7 +6974,7 @@ static inline void VkDivCeil(VkFFTSpecializationConstantsLayout* sc, VkContainer
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -7090,7 +7090,7 @@ static inline void VkMod(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -7206,7 +7206,7 @@ static inline void VkAnd(VkFFTSpecializationConstantsLayout* sc, VkContainer* ou
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkOr(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2) {
@@ -7321,7 +7321,7 @@ static inline void VkOr(VkFFTSpecializationConstantsLayout* sc, VkContainer* out
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -7412,7 +7412,7 @@ sincos(%s, &%s.y, &%s.x);\n", in_1->data.s, out->data.s, out->data.s);
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkNorm(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1) {
@@ -7455,7 +7455,7 @@ static inline void VkNorm(VkFFTSpecializationConstantsLayout* sc, VkContainer* o
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkRsqrt(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1) {
@@ -7504,7 +7504,7 @@ static inline void VkRsqrt(VkFFTSpecializationConstantsLayout* sc, VkContainer* 
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -7582,7 +7582,7 @@ static inline void VkConjugate(VkFFTSpecializationConstantsLayout* sc, VkContain
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -7750,7 +7750,7 @@ static inline void VkShuffleComplex(VkFFTSpecializationConstantsLayout* sc, VkCo
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkShuffleComplexInv(VkFFTSpecializationConstantsLayout* sc, VkContainer* out, VkContainer* in_1, VkContainer* in_2, VkContainer* temp) {
@@ -7917,7 +7917,7 @@ static inline void VkShuffleComplexInv(VkFFTSpecializationConstantsLayout* sc, V
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -8004,7 +8004,7 @@ if (%d) {\n", (left->data.d == right->data.d));
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIf_lt_start(VkFFTSpecializationConstantsLayout* sc, VkContainer* left, VkContainer* right) {
@@ -8089,7 +8089,7 @@ if (%d) {\n", (left->data.d < right->data.d));
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIf_le_start(VkFFTSpecializationConstantsLayout* sc, VkContainer* left, VkContainer* right) {
@@ -8174,7 +8174,7 @@ if (%d) {\n", (left->data.d <= right->data.d));
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIf_gt_start(VkFFTSpecializationConstantsLayout* sc, VkContainer* left, VkContainer* right) {
@@ -8259,7 +8259,7 @@ if (%d) {\n", (left->data.d > right->data.d));
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIf_ge_start(VkFFTSpecializationConstantsLayout* sc, VkContainer* left, VkContainer* right) {
@@ -8344,7 +8344,7 @@ if (%d) {\n", (left->data.d >= right->data.d));
 			}
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -8383,7 +8383,7 @@ if (%" PRIi64 ") {\n", in->data.i);
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIfFalse(VkFFTSpecializationConstantsLayout* sc, VkContainer* in) {
@@ -8414,7 +8414,7 @@ if (!%" PRIi64 ") {\n", in->data.i);
 			break;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkIf_else(VkFFTSpecializationConstantsLayout* sc) {
@@ -8449,7 +8449,7 @@ static inline void VkPrintReg(VkFFTSpecializationConstantsLayout* sc, VkContaine
 			return;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 
@@ -8474,7 +8474,7 @@ static inline void VkPermute(VkFFTSpecializationConstantsLayout* sc, uint64_t* p
 			return;
 		}
 	}
-	sc->res = dbg(VKFFT_ERROR_MATH_FAILED);
+	sc->res = VKFFT_ERROR_MATH_FAILED;
 	return;
 }
 static inline void VkSubgroupAdd(VkFFTSpecializationConstantsLayout* sc, VkContainer* in, VkContainer* out, uint64_t subWarpSplit) {

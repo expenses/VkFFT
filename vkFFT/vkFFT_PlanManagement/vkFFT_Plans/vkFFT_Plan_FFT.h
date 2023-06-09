@@ -265,6 +265,9 @@ static inline VkFFTResult VkFFTPlanAxis(VkFFTApplication* app, VkFFTPlan* FFTPla
 			return VKFFT_ERROR_MALLOC_FAILED;
 		}
 		app->configuration.tempBuffer[0] = app->configuration.device->newBuffer(app->configuration.tempBufferSize[0], MTL::ResourceStorageModePrivate);
+#elif(VKFFT_BACKEND==666)
+	app->configuration.tempBuffer = (void**)malloc(sizeof(void*));
+	app->configuration.tempBuffer[0] = allocate_buffer(app->configuration.device, app->configuration.tempBufferSize[0]);
 #endif
 	}
 	//generate Rader Kernels
