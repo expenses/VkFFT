@@ -67,12 +67,12 @@
 #endif
 
 
-struct BufferInfo {
+typedef struct BufferInfo {
 	void* buffer;
 	uint64_t offset;
 	uint64_t range;
 	uint32_t array_element;
-};
+} BufferInfo;
 
 
 void* create_pipeline(void* device, const uint32_t* code, uint64_t codeSize, void* descriptor_set);
@@ -90,13 +90,13 @@ void bind_descriptor_set(void* command_buffer, void* descriptor_set);
 void* allocate_buffer(void* device, uint64_t size);
 
 //unified VkFFT container
-union VkData {
+typedef union VkData {
 	int64_t i;
 	long double d;
 	long double c[2];
 
 	char* s;
-};
+} VkData;
 typedef struct VkContainer VkContainer;
 struct VkContainer{
 	int type; // 0 - uninitialized
