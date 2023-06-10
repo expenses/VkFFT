@@ -58,10 +58,6 @@
 #endif
 #endif
 
-#if(VKFFT_BACKEND==666)
-#include "glslang_c_interface.h"
-#endif
-
 #include "vkFFT_Structs/vkFFT_Structs.h"
 #include "vkFFT_AppManagement/vkFFT_RunApp.h"
 #include "vkFFT_AppManagement/vkFFT_InitializeApp.h"

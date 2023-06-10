@@ -163,7 +163,7 @@ static inline VkFFTResult VkFFTPlanR2CMultiUploadDecomposition(VkFFTApplication*
 		axis->axisBlock[1] = 1;
 		axis->axisBlock[2] = 1;
 
-		uint64_t tempSize[3] = { (uint64_t)ceil((app->configuration.size[0] * app->configuration.size[1] * app->configuration.size[2]) / (long double)(2 * axis->axisBlock[0])), 1, 1 };
+		uint64_t tempSize[3] = { (uint64_t)ceil((app->configuration.size[0] * app->configuration.size[1] * app->configuration.size[2]) / (2 * axis->axisBlock[0])), 1, 1 };
 		tempSize[2] *= app->configuration.numberKernels * app->configuration.numberBatches * app->configuration.coordinateFeatures;
 		if ((app->configuration.maxComputeWorkGroupCount[0] > app->configuration.maxComputeWorkGroupCount[1]) && (tempSize[1] > app->configuration.maxComputeWorkGroupCount[1]) && (tempSize[1] > tempSize[0]) && (tempSize[1] >= tempSize[2])) {
 			uint64_t temp_tempSize = tempSize[0];

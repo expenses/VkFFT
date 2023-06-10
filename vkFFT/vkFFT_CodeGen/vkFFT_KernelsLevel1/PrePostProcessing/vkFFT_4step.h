@@ -83,7 +83,7 @@ static inline void appendReorder4Step(VkFFTSpecializationConstantsLayout* sc, in
 					temp_int.data.i = i * sc->localSize[1].data.i;
 					VkAdd(sc, &sc->tempInt, &sc->gl_LocalInvocationID_y, &temp_int);
 					VkMul(sc, &sc->tempInt, &sc->inoutID, &sc->tempInt, 0);
-					temp_double.data.d = 2 * sc->double_PI/ (long double)(sc->stageStartSize.data.i * sc->fftDim.data.i);
+					temp_double.data.d = 2 * sc->double_PI/ (sc->stageStartSize.data.i * sc->fftDim.data.i);
 					VkMul(sc, &sc->angle, &sc->tempInt, &temp_double, 0);
 					VkSinCos(sc, &sc->mult, &sc->angle);
 					if ((!sc->inverse) && (readWrite == 1)) {

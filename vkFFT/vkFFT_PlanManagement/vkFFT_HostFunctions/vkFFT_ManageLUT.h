@@ -237,7 +237,7 @@ static inline VkFFTResult VkFFT_AllocateLUT(VkFFTApplication* app, VkFFTPlan* FF
 		}
 
 		if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-			long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+			double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 			if (axis->specializationConstants.axis_upload_id > 0) {
 				if ((app->configuration.performDCT == 2) || (app->configuration.performDCT == 3)) {
 					axis->specializationConstants.startDCT3LUT.type = 31;
@@ -392,8 +392,8 @@ static inline VkFFTResult VkFFT_AllocateLUT(VkFFTApplication* app, VkFFTPlan* FF
 						if (!axis->specializationConstants.inline_rader_kernel) {
 							double* raderFFTkernel = (double*)axis->specializationConstants.raderContainer[i].raderFFTkernel;
 							for (uint64_t j = 0; j < (axis->specializationConstants.raderContainer[i].prime - 1); j++) {//fix later
-								tempLUT[2 * (j + axis->specializationConstants.raderContainer[i].RaderKernelOffsetLUT)] = (double)(raderFFTkernel[2 * j] / (long double)(axis->specializationConstants.raderContainer[i].prime - 1));
-								tempLUT[2 * (j + axis->specializationConstants.raderContainer[i].RaderKernelOffsetLUT) + 1] = (double)(raderFFTkernel[2 * j + 1] / (long double)(axis->specializationConstants.raderContainer[i].prime - 1));
+								tempLUT[2 * (j + axis->specializationConstants.raderContainer[i].RaderKernelOffsetLUT)] = (double)(raderFFTkernel[2 * j] / (axis->specializationConstants.raderContainer[i].prime - 1));
+								tempLUT[2 * (j + axis->specializationConstants.raderContainer[i].RaderKernelOffsetLUT) + 1] = (double)(raderFFTkernel[2 * j + 1] / (axis->specializationConstants.raderContainer[i].prime - 1));
 							}
 						}
 					}
@@ -402,7 +402,7 @@ static inline VkFFTResult VkFFT_AllocateLUT(VkFFTApplication* app, VkFFTPlan* FF
 			if ((axis->specializationConstants.axis_upload_id > 0) && (app->configuration.useLUT_4step == 1)) {
 				for (uint64_t i = 0; i < axis->specializationConstants.stageStartSize.data.i; i++) {
 					for (uint64_t j = 0; j < axis->specializationConstants.fftDim.data.i; j++) {
-						long double angle = 2 * double_PI * ((i * j) / (long double)(axis->specializationConstants.stageStartSize.data.i * axis->specializationConstants.fftDim.data.i));
+						double angle = 2 * double_PI * ((i * j) / (axis->specializationConstants.stageStartSize.data.i * axis->specializationConstants.fftDim.data.i));
 						tempLUT[maxStageSum * 2 + 2 * (i + j * axis->specializationConstants.stageStartSize.data.i)] = (double)cos(angle);
 						tempLUT[maxStageSum * 2 + 2 * (i + j * axis->specializationConstants.stageStartSize.data.i) + 1] = (double)sin(angle);
 					}
@@ -410,19 +410,19 @@ static inline VkFFTResult VkFFT_AllocateLUT(VkFFTApplication* app, VkFFTPlan* FF
 			}
 			if ((app->configuration.performDCT == 2) || (app->configuration.performDCT == 3)) {
 				for (uint64_t j = 0; j < app->configuration.size[axis->specializationConstants.axis_id] / 2 + 2; j++) {
-					long double angle = (double_PI / 2.0 / (long double)(app->configuration.size[axis->specializationConstants.axis_id])) * j;
+					double angle = (double_PI / 2.0 / (app->configuration.size[axis->specializationConstants.axis_id])) * j;
 					tempLUT[2 * axis->specializationConstants.startDCT3LUT.data.i + 2 * j] = (double)cos(angle);
 					tempLUT[2 * axis->specializationConstants.startDCT3LUT.data.i + 2 * j + 1] = (double)sin(angle);
 				}
 			}
 			if ((app->configuration.performDCT == 4) && (app->configuration.size[axis->specializationConstants.axis_id] % 2 == 0)) {
 				for (uint64_t j = 0; j < app->configuration.size[axis->specializationConstants.axis_id] / 4 + 2; j++) {
-					long double angle = (double_PI / 2.0 / (long double)(app->configuration.size[axis->specializationConstants.axis_id] / 2)) * j;
+					double angle = (double_PI / 2.0 / (app->configuration.size[axis->specializationConstants.axis_id] / 2)) * j;
 					tempLUT[2 * axis->specializationConstants.startDCT3LUT.data.i + 2 * j] = (double)cos(angle);
 					tempLUT[2 * axis->specializationConstants.startDCT3LUT.data.i + 2 * j + 1] = (double)sin(angle);
 				}
 				for (uint64_t j = 0; j < app->configuration.size[axis->specializationConstants.axis_id] / 2; j++) {
-					long double angle = (-double_PI / 8.0 / (long double)(app->configuration.size[axis->specializationConstants.axis_id] / 2)) * (2 * j + 1);
+					double angle = (-double_PI / 8.0 / (app->configuration.size[axis->specializationConstants.axis_id] / 2)) * (2 * j + 1);
 					tempLUT[2 * axis->specializationConstants.startDCT4LUT.data.i + 2 * j] = (double)cos(angle);
 					tempLUT[2 * axis->specializationConstants.startDCT4LUT.data.i + 2 * j + 1] = (double)sin(angle);
 				}
@@ -1076,7 +1076,7 @@ static inline VkFFTResult VkFFT_AllocateLUT_R2C(VkFFTApplication* app, VkFFTPlan
 	#endif
 	if (app->configuration.useLUT == 1) {
 		if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-			long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+			double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 			axis->bufferLUTSize = (app->configuration.size[0] / 2) * 2 * sizeof(double);
 			double* tempLUT = (double*)malloc(axis->bufferLUTSize);
 			if (!tempLUT) {
@@ -1084,7 +1084,7 @@ static inline VkFFTResult VkFFT_AllocateLUT_R2C(VkFFTApplication* app, VkFFTPlan
 				return VKFFT_ERROR_MALLOC_FAILED;
 			}
 			for (uint64_t i = 0; i < app->configuration.size[0] / 2; i++) {
-				long double angle = double_PI * i / (app->configuration.size[0] / 2);
+				double angle = double_PI * i / (app->configuration.size[0] / 2);
 				tempLUT[2 * i] = (double)cos(angle);
 				tempLUT[2 * i + 1] = (double)sin(angle);
 			}

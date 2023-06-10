@@ -57,7 +57,7 @@ static inline void appendFFTRaderStage(VkFFTSpecializationConstantsLayout* sc, V
 		normalizationValue.data.i *= sc->fft_dim_full.data.i;
 	}
 	if (normalizationValue.data.i != 1) {
-		stageNormalization.data.d = 1.0 / (long double)(normalizationValue.data.i);
+		stageNormalization.data.d = 1.0 / (normalizationValue.data.i);
 	}
 
 	sc->useCoalescedLUTUploadToSM = 0;
@@ -295,7 +295,7 @@ static inline void appendFFTRaderStage(VkFFTSpecializationConstantsLayout* sc, V
 	}
 	int64_t locStageSize = 1;
 	int64_t locStageSizeSum = 0;
-	long double locStageAngle = -sc->double_PI;
+	double locStageAngle = -sc->double_PI;
 	int64_t shift = 0;
 	for (int rader_stage = 0; rader_stage < sc->currentRaderContainer->numStages; rader_stage++) {
 		int64_t locStageRadix = sc->currentRaderContainer->stageRadix[rader_stage];
@@ -1305,7 +1305,7 @@ static inline void appendMultRaderStage(VkFFTSpecializationConstantsLayout* sc, 
 		normalizationValue.data.i *= sc->fft_dim_full.data.i;
 	}
 	if (normalizationValue.data.i != 1) {
-		stageNormalization.data.d = 1.0 / (long double)(normalizationValue.data.i);
+		stageNormalization.data.d = 1.0 / (normalizationValue.data.i);
 	}
 	/*char convolutionInverse[10] = "";
 	if (sc->convolutionStep) {
@@ -1662,7 +1662,7 @@ static inline void appendMultRaderStage(VkFFTSpecializationConstantsLayout* sc, 
 			
 			//load deconv kernel
 			if (!sc->inline_rader_kernel) {
-				for (uint64_t t = 0; t < (uint64_t)ceil((stageRadix->data.i - 1) / ((long double)(sc->localSize[0].data.i * sc->localSize[1].data.i))); t++) {
+				for (uint64_t t = 0; t < (uint64_t)ceil((stageRadix->data.i - 1) / ((sc->localSize[0].data.i * sc->localSize[1].data.i))); t++) {
 					VkMul(sc, &sc->combinedID, &sc->gl_LocalInvocationID_y, &sc->localSize[0], 0);
 					VkAdd(sc, &sc->combinedID, &sc->combinedID, &sc->gl_LocalInvocationID_x);
 					temp_int.data.i = t * sc->localSize[0].data.i * sc->localSize[1].data.i;
@@ -1718,7 +1718,7 @@ static inline void appendMultRaderStage(VkFFTSpecializationConstantsLayout* sc, 
 						VkAdd(sc, &sc->tempInt, &sc->combinedID, &sc->RaderKernelOffsetShared[stageID]);
 						appendRegistersToShared(sc, &sc->tempInt, &sc->w);
 					}
-					if (t == ((uint64_t)ceil((stageRadix->data.i - 1) / ((long double)(sc->localSize[0].data.i * sc->localSize[1].data.i))) - 1)) {
+					if (t == ((uint64_t)ceil((stageRadix->data.i - 1) / ((sc->localSize[0].data.i * sc->localSize[1].data.i))) - 1)) {
 						VkIf_end(sc);
 					}
 				}
@@ -2078,7 +2078,7 @@ static inline void appendMultRaderStage(VkFFTSpecializationConstantsLayout* sc, 
 					}
 #endif
 #if(VKFFT_BACKEND == 2) //AMD compiler fix
-					if ((uint64_t)ceil((sc->localSize[0].data.i * sc->localSize[1].data.i) / ((long double)sc->warpSize)) * sc->warpSize * (1 + sc->registers_per_thread + sc->usedLocRegs) > 2048) {
+					if ((uint64_t)ceil((sc->localSize[0].data.i * sc->localSize[1].data.i) / (sc->warpSize)) * sc->warpSize * (1 + sc->registers_per_thread + sc->usedLocRegs) > 2048) {
 						VkIf_end(sc);
 
 						if (require_cutoff_check2) {

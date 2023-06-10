@@ -27,7 +27,7 @@
 #include "vkFFT_CodeGen/vkFFT_MathUtils/vkFFT_MathUtils.h"
 #include "vkFFT_CodeGen/vkFFT_KernelsLevel0/vkFFT_MemoryManagement/vkFFT_MemoryTransfers/vkFFT_Transfers.h"
 
-static inline void inlineRadixKernelVkFFT(VkFFTSpecializationConstantsLayout* sc, int64_t radix, int64_t stageSize, int64_t stageSizeSum, long double stageAngle, VkContainer* regID) {
+static inline void inlineRadixKernelVkFFT(VkFFTSpecializationConstantsLayout* sc, int64_t radix, int64_t stageSize, int64_t stageSizeSum, double stageAngle, VkContainer* regID) {
 	if (sc->res != VKFFT_SUCCESS) return;
 
 	VkContainer temp_complex;

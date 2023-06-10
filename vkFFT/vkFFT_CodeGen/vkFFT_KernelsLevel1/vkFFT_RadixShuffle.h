@@ -60,7 +60,7 @@ static inline void appendRadixShuffleNonStrided(VkFFTSpecializationConstantsLayo
 		normalizationValue.data.i *= sc->fft_dim_full.data.i;
 	}
 	if (normalizationValue.data.i != 1) {
-		stageNormalization.data.d = 1.0 / (long double)(normalizationValue.data.i);
+		stageNormalization.data.d = 1.0 / (normalizationValue.data.i);
 	}
 	
 	VkContainer logicalStoragePerThread;
@@ -379,7 +379,7 @@ static inline void appendRadixShuffleStrided(VkFFTSpecializationConstantsLayout*
 		normalizationValue.data.i *= sc->fft_dim_full.data.i;
 	}
 	if (normalizationValue.data.i != 1) {
-		stageNormalization.data.d = 1.0 / (long double)(normalizationValue.data.i);
+		stageNormalization.data.d = 1.0 / (normalizationValue.data.i);
 	}
 	char tempNum[50] = "";
 

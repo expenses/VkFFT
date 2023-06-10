@@ -115,12 +115,12 @@ static inline VkFFTResult VkFFTGeneratePhaseVectors(VkFFTApplication* app, VkFFT
 		if (!phaseVectors_fp64) {
 			return VKFFT_ERROR_MALLOC_FAILED;
 		}
-		long double* phaseVectors_fp128 = (long double*)malloc(2 * bufferSize);
+		double* phaseVectors_fp128 = (double*)malloc(2 * bufferSize);
 		if (!phaseVectors_fp128) {
 			free(phaseVectors_fp64);
 			return VKFFT_ERROR_MALLOC_FAILED;
 		}
-		long double* phaseVectors_fp128_out = (long double*)malloc(2 * bufferSize);
+		double* phaseVectors_fp128_out = (double*)malloc(2 * bufferSize);
 		if (!phaseVectors_fp128) {
 			free(phaseVectors_fp64);
 			free(phaseVectors_fp128);
@@ -128,10 +128,10 @@ static inline VkFFTResult VkFFTGeneratePhaseVectors(VkFFTApplication* app, VkFFT
 		}
 		uint64_t phaseVectorsNonZeroSize = (((app->configuration.performDCT == 4) && (app->configuration.size[axis_id] % 2 == 0)) || ((FFTPlan->multiUploadR2C) && (axis_id == 0))) ? app->configuration.size[axis_id] / 2 : app->configuration.size[axis_id];
 		if (app->configuration.performDCT == 1) phaseVectorsNonZeroSize = 2 * app->configuration.size[axis_id] - 2;
-		long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+		double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 		for (uint64_t i = 0; i < FFTPlan->actualFFTSizePerAxis[axis_id][axis_id]; i++) {
 			uint64_t rm = (i * i) % (2 * phaseVectorsNonZeroSize);
-			long double angle = double_PI * rm / phaseVectorsNonZeroSize;
+			double angle = double_PI * rm / phaseVectorsNonZeroSize;
 			phaseVectors_fp128[2 * i] = (i < phaseVectorsNonZeroSize) ? cos(angle) : 0;
 			phaseVectors_fp128[2 * i + 1] = (i < phaseVectorsNonZeroSize) ? -sin(angle) : 0;
 		}
@@ -297,11 +297,11 @@ static inline VkFFTResult VkFFTGeneratePhaseVectors(VkFFTApplication* app, VkFFT
 
 		if ((FFTPlan->numAxisUploads[axis_id] > 1) && (!app->configuration.makeForwardPlanOnly)) {
 			if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-				long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+				double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 				double* phaseVectors_cast = (double*)phaseVectors;
 				for (uint64_t i = 0; i < FFTPlan->actualFFTSizePerAxis[axis_id][axis_id]; i++) {
 					uint64_t rm = (i * i) % (2 * phaseVectorsNonZeroSize);
-					long double angle = double_PI * rm / phaseVectorsNonZeroSize;
+					double angle = double_PI * rm / phaseVectorsNonZeroSize;
 					phaseVectors_cast[2 * i] = (i < phaseVectorsNonZeroSize) ? (double)cos(angle) : 0;
 					phaseVectors_cast[2 * i + 1] = (i < phaseVectorsNonZeroSize) ? (double)-sin(angle) : 0;
 				}
@@ -521,11 +521,11 @@ static inline VkFFTResult VkFFTGeneratePhaseVectors(VkFFTApplication* app, VkFFT
 		}
 		else {
 			if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-				long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+				double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 				double* phaseVectors_cast = (double*)phaseVectors;
 				for (uint64_t i = 0; i < FFTPlan->actualFFTSizePerAxis[axis_id][axis_id]; i++) {
 					uint64_t rm = (i * i) % (2 * phaseVectorsNonZeroSize);
-					long double angle = double_PI * rm / phaseVectorsNonZeroSize;
+					double angle = double_PI * rm / phaseVectorsNonZeroSize;
 					phaseVectors_cast[2 * i] = (i < phaseVectorsNonZeroSize) ? (double)cos(angle) : 0;
 					phaseVectors_cast[2 * i + 1] = (i < phaseVectorsNonZeroSize) ? (double)sin(angle) : 0;
 				}
@@ -942,14 +942,14 @@ static inline VkFFTResult VkFFTGenerateRaderFFTKernel(VkFFTApplication* app, VkF
 
 #ifdef VkFFT_use_FP128_Bluestein_RaderFFT
 				if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-					long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+					double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 					double* raderFFTkernel = (double*)malloc((axis->specializationConstants.raderContainer[i].prime - 1) * sizeof(double) * 2);
 					if (!raderFFTkernel) return VKFFT_ERROR_MALLOC_FAILED;
 					axis->specializationConstants.raderContainer[i].raderFFTkernel = (void*)raderFFTkernel;
 					app->raderFFTkernel[write_id] = (void*)raderFFTkernel;
 					app->rader_buffer_size[write_id] = (axis->specializationConstants.raderContainer[i].prime - 1) * sizeof(double) * 2;
 
-					long double* raderFFTkernel_temp = (long double*)malloc((axis->specializationConstants.raderContainer[i].prime - 1) * sizeof(long double) * 2);
+					double* raderFFTkernel_temp = (double*)malloc((axis->specializationConstants.raderContainer[i].prime - 1) * sizeof * 2);
 					if (!raderFFTkernel_temp) return VKFFT_ERROR_MALLOC_FAILED;
 					for (uint64_t j = 0; j < (axis->specializationConstants.raderContainer[i].prime - 1); j++) {//fix later
 						uint64_t g_pow = 1;
@@ -972,7 +972,7 @@ static inline VkFFTResult VkFFTGenerateRaderFFTKernel(VkFFTApplication* app, VkF
 				}
 #endif
 				if (app->configuration.doublePrecision || app->configuration.doublePrecisionFloatMemory) {
-					long double double_PI = 3.14159265358979323846264338327950288419716939937510L;
+					double double_PI = 3.14159265358979323846264338327950288419716939937510L;
 					double* raderFFTkernel = (double*)malloc((axis->specializationConstants.raderContainer[i].prime - 1) * sizeof(double) * 2);
 					if (!raderFFTkernel) return VKFFT_ERROR_MALLOC_FAILED;
 					axis->specializationConstants.raderContainer[i].raderFFTkernel = (void*)raderFFTkernel;

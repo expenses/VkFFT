@@ -107,18 +107,18 @@ static inline void appendC2R_read(VkFFTSpecializationConstantsLayout* sc, int ty
 			}
 		}
 		else {
-			if (i >= (int64_t)ceil((fftDim.data.i / 2 + 1) / (long double)localSize.data.i)) {
+			if (i >= (int64_t)ceil((fftDim.data.i / 2 + 1) / localSize.data.i)) {
 				if ((1 + i) * localSize.data.i > fftDim.data.i) {
 					temp_int.data.i = fftDim.data.i - (i)*localSize.data.i;
 					VkIf_lt_start(sc, localInvocationID, &temp_int);
 				}
-				if ((((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) > (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / (long double)localSize.data.i))) * localSize.data.i) && ((uint64_t)ceil(fftDim.data.i / 2.0) - 1 > (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1)))) {
+				if ((((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) > (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / localSize.data.i))) * localSize.data.i) && ((uint64_t)ceil(fftDim.data.i / 2.0) - 1 > (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1)))) {
 					if (sc->zeropadBluestein[0]) {
-						temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / (long double)localSize.data.i))) * localSize.data.i;
+						temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / localSize.data.i))) * localSize.data.i;
 						VkIf_gt_start(sc, &temp_int, localInvocationID);
 					}
 
-					temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / (long double)localSize.data.i))) * localSize.data.i;
+					temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / localSize.data.i))) * localSize.data.i;
 					if (sc->stridedSharedLayout) {
 						VkSub(sc, &sc->sdataID, &temp_int, localInvocationID);
 						VkMul(sc, &sc->sdataID, &sc->sdataID, &sc->sharedStride, 0);
@@ -191,7 +191,7 @@ static inline void appendC2R_read(VkFFTSpecializationConstantsLayout* sc, int ty
 				}
 				VkIf_else(sc);
 
-				temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / (long double)localSize.data.i))) * localSize.data.i;
+				temp_int.data.i = ((int64_t)ceil(fftDim.data.i / 2.0) - 1 - (localSize.data.i - ((fftDim.data.i / 2) % localSize.data.i + 1))) - (i - ((int64_t)ceil((fftDim.data.i / 2 + 1) / localSize.data.i))) * localSize.data.i;
 
 				if (sc->stridedSharedLayout)
 				{

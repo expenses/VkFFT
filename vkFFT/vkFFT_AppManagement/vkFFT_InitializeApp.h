@@ -966,14 +966,6 @@ static inline VkFFTResult setConfigurationVkFFT(VkFFTApplication* app, VkFFTConf
 	str_code->release();
 	compileOptions->release();
 #elif(VKFFT_BACKEND==666)
-	if (!inputLaunchConfiguration.isCompilerInitialized) {
-		if (!app->configuration.isCompilerInitialized) {
-			int resGlslangInitialize = glslang_initialize_process();
-			if (!resGlslangInitialize) return VKFFT_ERROR_FAILED_TO_INITIALIZE;
-			app->configuration.isCompilerInitialized = 1;
-		}
-	}
-
 	if (inputLaunchConfiguration.device == 0) {
 		deleteVkFFT(app);
 		return VKFFT_ERROR_INVALID_DEVICE;
@@ -1730,7 +1722,7 @@ VkFFTResult initializeVkFFT(VkFFTApplication* app, VkFFTConfiguration inputLaunc
 			}
 		}
 	}
-#if((VKFFT_BACKEND==0)||(VKFFT_BACKEND==666)) 
+#if(VKFFT_BACKEND==0)
 	if (app->configuration.isCompilerInitialized) {
 		glslang_finalize_process();
 		app->configuration.isCompilerInitialized = 0;

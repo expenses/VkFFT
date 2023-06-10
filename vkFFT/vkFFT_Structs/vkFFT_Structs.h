@@ -75,7 +75,7 @@ typedef struct BufferInfo {
 } BufferInfo;
 
 
-void* create_pipeline(void* device, const uint32_t* code, uint64_t codeSize, void* descriptor_set);
+void* create_pipeline(void* device, const char* glsl, void* descriptor_set);
 
 void bind_pipeline(void* command_buffer, void* pipeline);
 
@@ -92,8 +92,8 @@ void* allocate_buffer(void* device, uint64_t size);
 //unified VkFFT container
 typedef union VkData {
 	int64_t i;
-	long double d;
-	long double c[2];
+	double d;
+	double c[2];
 
 	char* s;
 } VkData;
@@ -207,7 +207,6 @@ typedef struct {
 	void* device;
 	void* queue;
 	void* commandBuffer;
-	uint64_t isCompilerInitialized;//specify if glslang compiler has been intialized before (0 - off, 1 - on). Default 0
 #endif
 	uint64_t bufferOffset;//specify if VkFFT has to offset the first element position inside the buffer. In bytes. Default 0 
 	uint64_t tempBufferOffset;//specify if VkFFT has to offset the first element position inside the temp buffer. In bytes. Default 0 
@@ -733,7 +732,7 @@ struct VkFFTRaderContainer {
 
 typedef struct {
 	VkFFTResult res;
-	long double double_PI; 
+	double double_PI; 
 
 	VkContainer size[3];
 	VkContainer localSize[3];
